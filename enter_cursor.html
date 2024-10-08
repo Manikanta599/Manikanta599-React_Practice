@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>UI monk</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background: #333;
+            color: white
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>On Enter Button Click, focus next Input Field</h2>
+        <form onsubmit="event.preventDefault()">
+            <div class="form-group ">
+                <label for="name ">Name:</label>
+                <input type="text " class="form-control register_form " id="name " placeholder="Enter Name ">
+            </div>
+            <div class="form-group ">
+                <label for="phone ">Phone:</label>
+                <input type="text " class="form-control register_form " id="phone " placeholder="Enter Phone ">
+            </div>
+            <div class="form-group ">
+                <label for="email ">Email:</label>
+                <input type="email " class="form-control register_form " id="email " placeholder="Enter email ">
+            </div>
+            <div class="form-group ">
+                <label for="pwd ">Password:</label>
+                <input type="password " class="form-control register_form " id="pwd " placeholder="Enter password ">
+            </div>
+
+            <button type="submit " class="btn btn-default ">Submit</button>
+        </form>
+    </div>
+
+
+
+    <script>
+        var allFields = document.querySelectorAll(".register_form");
+     
+
+        for (var i = 0; i < allFields.length; i++) {
+
+            allFields[i].addEventListener("keyup", function(event) {
+
+                if (event.keyCode === 13) {
+                    console.log('Enter clicked')
+                    event.preventDefault();
+                    if (this.parentElement.nextElementSibling.querySelector('input')) {
+                        this.parentElement.nextElementSibling.querySelector('input').focus();
+                    }
+                }
+            });
+
+        }
+    </script>
+
+
+</body>
+
+</html>
