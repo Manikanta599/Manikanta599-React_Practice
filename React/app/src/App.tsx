@@ -8,6 +8,7 @@ import TodoMain from './components/todo/todoMain';
 import { createContext,useState } from 'react';
 import ComponentA from './components/contextAPI/componentA';
 import ComponentB from './components/contextAPI/componentB';
+import TableInputs from './components/table';
 
 export const store=createContext({});
 
@@ -22,10 +23,11 @@ function App() {
 
   // <UseRef/>
 <>
-<store.Provider value={[data,setdata]}>
+{/* <store.Provider value={[data,setdata]}>
   <ComponentA/>
   <ComponentB/>
-</store.Provider>
+</store.Provider> */}
+<TableInputs/>
 
 </>
   
