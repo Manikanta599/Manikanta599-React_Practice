@@ -13,4 +13,199 @@ import { TypeOrmModule } from "@nestjs/typeorm";
     exports:[]
 })
 
-export class DMSModule{ };
+export class DMSModule{ }; 
+@InjectDataSource(dataSourceNames.dms) private dataSource: DataSource
+
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import configuration from '../../config/configuration';
+import { WarehouseController } from './warehouse.controller';
+import { DatabaseModule } from '../../database';
+// import { GrnApprovalHierarchyRepo } from './repositories/grn/grn-approval-herirarchy.repository';
+// import { GrnNotificationRepo } from './repositories/grn/grn-notication.repository';
+// import { PhGrnRepo } from './repositories/grn/ph-grn.repository';
+// import { PhVehicleRepo } from './repositories/grn/ph-vehicle.repository';
+// import { VehicleUnloadingHisRepo } from './repositories/grn/vehical-unload-history.repository';
+import { InsApprovalHierarchyRepo } from './repositories/inspection/ins-approval-hierarchy.repository';
+import { InsRequestAttributeRepo } from './repositories/inspection/ins-request-attributes.repository';
+import { InsRequestHistoryRepo } from './repositories/inspection/ins-request-history.repository';
+import { InsRequestItemRepo } from './repositories/inspection/ins-request-items.repository';
+import { InsRequestRevisionRepo } from './repositories/inspection/ins-request-revision.repository';
+import { InsRequestEntityRepo } from './repositories/inspection/ins-request.repository';
+// import { PalletBinMapHistoryRepo } from './repositories/location-allocation/pallet-bin-map-history.repository';
+// import { PalletGroupItemsRepo } from './repositories/location-allocation/pallet-group-items.repository';
+// import { PalletGroupRepo } from './repositories/location-allocation/pallet-group.repository';
+// import { PalletRollMapHistoryRepo } from './repositories/location-allocation/pallet-roll-map-history.repository';
+// import { PalletRollMapRepo } from './repositories/location-allocation/pallet-roll-map.repository';
+// import { PalletSubGroupRepo } from './repositories/location-allocation/pallet-sub-group.repository';
+// import { IReasonRepo } from './repositories/master-data/i-reason.repository';
+// import { LBinRepo } from './repositories/master-data/l-bin.repository';
+// import { LPalletRepo } from './repositories/master-data/l-pallet.repository';
+// import { LRackRepo } from './repositories/master-data/l-rack.repository';
+// import { LTrayRepo } from './repositories/master-data/l-tray.repository';
+// import { LTrollyRepo } from './repositories/master-data/l-trolly.repository';
+// import { MoverRepo } from './repositories/master-data/mover.repository';
+// import { RollAttributesRepo } from './repositories/master-data/roll-attributes.repositry';
+// import { UserGroupEntityRepo } from './repositories/master-data/user-group.repository';
+// import { WhRequestHeaderRepo } from './repositories/material-request-handling/wh-request-header.repository';
+// import { WhRequestLineItemRepo } from './repositories/material-request-handling/wh-request-line-item.repository';
+// import { WhRequestLineRepo } from './repositories/material-request-handling/wh-request-line.repository';
+import { TypeOrmModule } from '@nestjs/typeorm';
+// import { PackingListRepo } from './repositories/packing-list/packing-list.repository';
+// import { PhApprovalHierarchyRepo } from './repositories/packing-list/ph-approval-hierarchy.repository';
+// import { PhBarcodePrintHistoryRepo } from './repositories/packing-list/ph-bar-code-print-history.repository';
+// import { PhItemIssuanceRepo } from './repositories/packing-list/ph-item-issuance.repository';
+// import { PhItemLineSampleRepo } from './repositories/packing-list/ph-item-line-sample.repository';
+// import { PhItemLinesActualRepo } from './repositories/packing-list/ph-item-lines-actual.repository';
+// import { PhItemLinesAiRepo } from './repositories/packing-list/ph-item-lines-ai.repository';
+// import { PhItemLinesConRepo } from './repositories/packing-list/ph-item-lines-con.repository';
+// import { PhItemLinesRepo } from './repositories/packing-list/ph-item-lines.repository';
+// import { PhItemslinesActivitytrackRepo } from './repositories/packing-list/ph-items-lines-activity-track.repository';
+// import { PhItemsRepo } from './repositories/packing-list/ph-items.repository';
+// import { PhLinesPrintHistoryRepo } from './repositories/packing-list/ph-lines-print-history.repository';
+// import { PhLinesRepo } from './repositories/packing-list/ph-lines-repository';
+// import { PhLogRepo } from './repositories/packing-list/ph-log.reporitory';
+// import { PhNotificationRepo } from './repositories/packing-list/ph-notification.repository';
+// import { PhShrinkageLinesRepo } from './repositories/packing-list/ph-shrinkage-lines.repository';
+// import { PhItemsFabricDefectCapturingRepo } from './repositories/packing-list/ph_items_fabric_defect_capturing.repository';
+// import { PhItemsFabricRelaxationRepo } from './repositories/packing-list/ph_items_relaxation.repository';
+// import { SaleOrderRepo } from './repositories/pre-integrations/sale-order.repo';
+// import { SpoAttributesRepo } from './repositories/pre-integrations/spo-attributes.repo';
+// import { SpoItemsRepo } from './repositories/pre-integrations/spo-items.repository';
+// import { SpoLogRepo } from './repositories/pre-integrations/spo-log.repository';
+// import { SupplierPoRepo } from './repositories/pre-integrations/supplier-po.repository';
+// import { WAllocationRepo } from './repositories/rmw/w-allocation.repository';
+// import { WInspectionDetailsRepo } from './repositories/rmw/w-inspection-details.repository';
+// import { WInspectionRepo } from './repositories/rmw/w-inspection.repository';
+// import { WIssuranceRepo } from './repositories/rmw/w-issurance.repository';
+// import { WPickListRepo } from './repositories/rmw/w-pick-list.repository';
+// import { WRollAttributesRepo } from './repositories/rmw/w-roll-attributes.repository';
+// import { WRollDataRepo } from './repositories/rmw/w-roll-data.repository';
+// import { TrayRollMapRepo } from './repositories/tray-trolly/tray-roll-map.repository';
+// import { TrayRollMapHistoryRepo } from './repositories/tray-trolly/tray-troll-map-history.repository';
+// import { TrayTrolleyMapHistoryRepo } from './repositories/tray-trolly/tray-trolley-map-history.repository';
+// import { TrayTrolleyMapRepo } from './repositories/tray-trolly/tray-trolley-map.repository';
+// import { TrolleyBinMapHistoryRepo } from './repositories/tray-trolly/trolley-bin-map-history.repository';
+// import { TrolleyBinMapRepo } from './repositories/tray-trolly/trolley-bin-map.repository';
+// import { GrnApprovalHeirarchyEntity } from './entities/grn/grn-approval-heirarchy.entity';
+// import { GrnNotificationEntity } from './entities/grn/grn-notification.entity';
+// import { PhGrnEntity } from './entities/grn/ph-grn.entity';
+// import { PhVehicleEntity } from './entities/grn/ph-vehicle.entity';
+// import { VehicleUnloadingHistory } from './entities/grn/vehicle-unloading-history.entity';
+import { InsApprovalHierarchyEntity } from './entities/inspection/ins-approval-hierarchy.entity';
+import { InsRequestAttributeEntity } from './entities/inspection/ins-request-attributes.entity';
+import { InsRequestHistoryEntity } from './entities/inspection/ins-request-history.entity';
+import { InsRequestItemEntity } from './entities/inspection/ins-request-items.entity';
+import { InsRequestRevisionEntity } from './entities/inspection/ins-request-revision.entity';
+import { InsRequestEntity } from './entities/inspection/ins-request.entity';
+// import { PalletGroupItemsEntity } from './entities/location-allocation/pallet-group/pallet-group-items.entity';
+// import { PalletGroupEntity } from './entities/location-allocation/pallet-group/pallet-group.entity';
+// import { PalletSubGroupEntity } from './entities/location-allocation/pallet-group/pallet-sub-group.entity';
+// import { PalletBinMapHistoryEntity } from './entities/location-allocation/pallet-bin-map-history.entity';
+// import { PalletBinMapEntity } from './entities/location-allocation/pallet-bin-map.entity';
+// import { PalletRollMapHistoryEntity } from './entities/location-allocation/pallet-roll-map-history.entity';
+// import { PalletRollMapEntity } from './entities/location-allocation/pallet-roll-map.entity';
+// import { ApprovalHierarchyEntity } from './entities/master-data/approval_hierarchy.entity';
+// import { IReasonEntity } from './entities/master-data/i-reason.entity';
+// import { LBinEntity } from './entities/master-data/l-bin.entity';
+// import { LPalletEntity } from './entities/master-data/l-pallet.entity';
+// import { LRackEntity } from './entities/master-data/l-rack.entity';
+// import { LTrayEntity } from './entities/master-data/l-tray.entity';
+// import { LTrolleyEntity } from './entities/master-data/l-trolly.entity';
+// import { MoverEntity } from './entities/master-data/mover.entity';
+// import { RollAttributesEntity } from './entities/master-data/roll-attributes.entity';
+// import { UserGroupEntity } from './entities/master-data/user-group.entity';
+// import { WhMatRequestHeaderEntity } from './entities/material-request-handling/wh-mat-request-header.entity';
+// import { WhMatRequestLineItemEntity } from './entities/material-request-handling/wh-mat-request-line-item.entity';
+// import { WhMatRequestLineEntity } from './entities/material-request-handling/wh-mat-request-line.entity';
+// import { PackingListEntity } from './entities/packing-list/packing-list.entity';
+// import { PhApprovalHierarchyEntity } from './entities/packing-list/ph-approval-hierarchy.entity';
+// import { PhBarcodePrintHistoryEntity } from './entities/packing-list/ph-bar-code-print-history.entity';
+// import { PhItemsFabricDefectCapturingEntity } from './entities/packing-list/ph_items_fabric_defect_capturing.entity';
+// import { PhItemRelaxationEntity } from './entities/packing-list/ph_items_relaxation.entity';
+// import { PhItemIssuanceEntity } from './entities/packing-list/ph-item-issuance.entity';
+// import { PhItemLineSampleEntity } from './entities/packing-list/ph-item-line-sample.entity';
+// import { PhItemLinesActualEntity } from './entities/packing-list/ph-item-lines-actual.entity';
+// import { PhItemLinesAIEntity } from './entities/packing-list/ph-item-lines-ai.entity';
+// import { PhItemLinesConEntity } from './entities/packing-list/ph-item-lines-con.entity';
+// import { PhItemLinesEntity } from './entities/packing-list/ph-item-lines.entity';
+// import { PhItemLinesActivityTrackEntity } from './entities/packing-list/ph-items-lines-activity-track.entity';
+// import { PhItemsEntity } from './entities/packing-list/ph-items.entity';
+// import { PhLinesHistoryEntity } from './entities/packing-list/ph-lines-print-history.entity';
+// import { PhLinesEntity } from './entities/packing-list/ph-lines.entity';
+// import { PhLogEntity } from './entities/packing-list/ph-log.entity';
+// import { PhItemShrinkageLinesEntity } from './entities/packing-list/ph-shrinkage-lines.entity';
+// import { SaleOrderItemEntity } from './entities/pre-integrations/sale-order-items.entity';
+// import { SaleOrderEntity } from './entities/pre-integrations/sale-order.entity';
+// import { SpoAttributesEntity } from './entities/pre-integrations/spo-attributes.entity';
+// import { SpoItemsEntity } from './entities/pre-integrations/spo-items.entity';
+// import { SpoLogEntity } from './entities/pre-integrations/spo-log.entity';
+// import { SupplierPoEntity } from './entities/pre-integrations/supplier-po.entity';
+// import { WAllocationEntity } from './entities/rmw/w-allocation.entity';
+// import { WInspectionDetailsEntity } from './entities/rmw/w-inspection-details.entity';
+// import { WInspectionEntity } from './entities/rmw/w-inspection.entity';
+// import { WIssuranceEntity } from './entities/rmw/w-issurance.entity';
+// import { WPickListEntity } from './entities/rmw/w-pick-list.entity';
+// import { WRollAttributesEntity } from './entities/rmw/w-roll-attributes.entity';
+// import { WRollDataEntity } from './entities/rmw/w-roll-data.entity';
+// import { TrayRollMapHistoryEntity } from './entities/tray-trolly/tray-roll-map-history.entity';
+// import { TrayRollMapEntity } from './entities/tray-trolly/tray-roll-map.entity';
+// import { TrayTrolleyMapHistoryEntity } from './entities/tray-trolly/tray-trolley-map-history.entity';
+// import { TrayTrolleyMapEntity } from './entities/tray-trolly/tray-trolley-map.entity';
+// import { TrolleyBinMapHistoryEntity } from './entities/tray-trolly/trolley-bin-map-history.entity';
+// import { TrolleyBinMapEntity } from './entities/tray-trolly/trolley-bin-map.entity';
+import { DataSource } from 'typeorm';
+import { WarehouseService } from './warehouse.service';
+
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([
+        // VehicleUnloadingHistory,PhVehicleEntity,PhGrnEntity,GrnNotificationEntity,GrnApprovalHeirarchyEntity,
+        // InsRequestEntity,InsRequestRevisionEntity,InsRequestItemEntity,InsRequestHistoryEntity,InsRequestAttributeEntity,InsApprovalHierarchyEntity,
+        // PalletSubGroupEntity,PalletGroupEntity,PalletGroupItemsEntity,
+        // PalletRollMapEntity,PalletRollMapHistoryEntity,PalletBinMapEntity,PalletBinMapHistoryEntity,UserGroupEntity, 
+
+
+        // RollAttributesEntity,MoverEntity,LTrolleyEntity,LTrayEntity,LRackEntity,LPalletEntity,LBinEntity,IReasonEntity, 
+        
+        // ApprovalHierarchyEntity,WhMatRequestLineEntity,WhMatRequestLineItemEntity,WhMatRequestHeaderEntity, 
+
+
+        // PhBarcodePrintHistoryEntity,PhApprovalHierarchyEntity,PhItemRelaxationEntity,PhItemsFabricDefectCapturingEntity, 
+        
+        // PackingListEntity,PhItemLinesActivityTrackEntity,PhItemLinesEntity,PhItemLinesConEntity,PhItemLinesAIEntity,
+        
+        // PhItemLinesActualEntity,
+        // PhItemLineSampleEntity,
+        // PhItemIssuanceEntity,
+        // PhItemShrinkageLinesEntity, 
+
+        
+        // ,PhLogEntity, //error 
+
+
+        // PhLinesEntity, //db error  
+        // PhLinesHistoryEntity,
+        // PhItemsEntity,  
+
+
+        // SupplierPoEntity,
+        // SpoLogEntity,
+        // SpoItemsEntity,
+        // SpoAttributesEntity,
+        
+        // SaleOrderEntity,SaleOrderItemEntity,WRollDataEntity,WRollAttributesEntity,WPickListEntity,WIssuranceEntity,WInspectionEntity,WInspectionDetailsEntity,WAllocationEntity,TrolleyBinMapEntity,TrolleyBinMapHistoryEntity,TrayTrolleyMapEntity,TrayTrolleyMapHistoryEntity,TrayRollMapEntity,TrayRollMapHistoryEntity
+    ],'wms'),
+  ],
+  controllers: [WarehouseController],
+  providers: [ 
+    WarehouseService,
+    // VehicleUnloadingHisRepo,PhVehicleRepo,PhGrnRepo,GrnNotificationRepo,GrnApprovalHierarchyRepo,
+    InsRequestEntityRepo,InsRequestRevisionRepo,InsRequestItemRepo,InsRequestHistoryRepo,InsRequestAttributeRepo,
+    // PalletSubGroupRepo,
+    InsApprovalHierarchyRepo,
+    // PalletRollMapRepo,PalletRollMapHistoryRepo,PalletGroupRepo,PalletGroupItemsRepo,PalletGroupRepo,PalletBinMapHistoryRepo,UserGroupEntityRepo,RollAttributesRepo,MoverRepo,LTrollyRepo,LTrayRepo,LRackRepo,LPalletRepo,LBinRepo,IReasonRepo,WhRequestLineRepo,WhRequestLineItemRepo,WhRequestHeaderRepo,PhShrinkageLinesRepo,PhNotificationRepo,PhLogRepo,PhLinesRepo,PhLinesPrintHistoryRepo,PhItemsRepo,PhItemslinesActivitytrackRepo,PhItemLinesRepo,PhItemLinesConRepo,PhItemLinesAiRepo,PhItemLinesActualRepo,PhItemLineSampleRepo,PhItemIssuanceRepo,PhApprovalHierarchyRepo,PhItemsFabricRelaxationRepo,PhItemsFabricDefectCapturingRepo,PackingListRepo,PhBarcodePrintHistoryRepo,SupplierPoRepo,SpoLogRepo,SpoItemsRepo,SpoAttributesRepo,SaleOrderRepo,WRollDataRepo,WRollAttributesRepo,WPickListRepo,WIssuranceRepo,WInspectionRepo,WInspectionDetailsRepo,WAllocationRepo,TrolleyBinMapRepo,TrolleyBinMapHistoryRepo,TrayTrolleyMapRepo,TrayRollMapHistoryRepo,TrayRollMapRepo,TrayTrolleyMapHistoryRepo
+    ],
+  exports:[ ]
+})
+export class WarehouseModule { }
